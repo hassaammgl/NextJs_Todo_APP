@@ -6,7 +6,6 @@ import Link from "next/link";
 import { useState } from 'react';
 import styles from './RegisterForm.module.scss';
 import axios from "axios";
-import { Toaster,toast } from "react-hot-toast";
 
 const page = () => {
     const [formData, setFormData] = useState({
@@ -31,12 +30,14 @@ const page = () => {
             console.log("Form submitted");
             console.log(e);
             if (e.response.data.success === true) {
-                toast.success(e.response.data.message);
+                alert(e.response.data.message);
             }
         }).catch((err) => {
             console.log(err);
             if (err.response.data.success === false) {
-                toast.error(err.response.data.message);
+                alert(err.response.data.message);
+            } else {
+                alert("Internal Server Error")
             }
         })
 
@@ -100,7 +101,6 @@ const page = () => {
             </label>
             <button type="submit">Register</button>
             <h2>Already have an account <Link href={'/auth/login'}>Login</Link></h2>
-            <Toaster/>
         </form>
     );
 };
